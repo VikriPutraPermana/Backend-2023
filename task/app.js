@@ -1,18 +1,23 @@
-// Import express
-const express = require('express');
+// import Student Controller
+const StudentController = require("../controllers/StudentController");
 
-// make an object express
-const app = express();
+// import express
+const express = require("express");
 
-// using middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// make an object router
+const router = express.Router();
 
-// route definition
-const router = require("./routes/api");
-app.use(router);
-
-// port definition
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
+// make home routing
+router.get("/", (req, res) => {
+    res.send("Hello Ziyad");
 });
+
+// Routing for Students
+router.get("/students", StudentController.index);
+router.post("/students", StudentController.store);
+router.put("/students/:id", StudentController.update);
+router.delete("/students/:id", StudentController.destroy);
+router.get("/students/:id", StudentController.show);
+
+// export routing
+module.exports = router;
